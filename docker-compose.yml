@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: kiiiproject_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: leona1306
+      POSTGRES_DB: moviesdbkiii
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  app:
+    image: kiiiproject:latest
+    container_name: kiiiproject
+    build: .
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    volumes:
+      - ./config/application.properties:/app/src/main/resources/application-prod.properties
+
+volumes:
+  postgres_data:
+
