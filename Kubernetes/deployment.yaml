@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kiiiproject-app
+  namespace: kiiiproject-namespace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: kiiiproject
+  template:
+    metadata:
+      labels:
+        app: kiiiproject
+    spec:
+      containers:
+        - name: kiiiproject
+          image: leoonav/kiii-devops-project:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: app-config
+          volumeMounts:
+            - name: config-volume
+              mountPath: /app/src/main/resources/application-prod.properties
+              subPath: application-prod.properties
+      volumes:
+        - name: config-volume
+          configMap:
+            name: app-config

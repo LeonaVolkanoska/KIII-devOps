@@ -6,7 +6,7 @@ services:
     container_name: kiiiproject_db
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PASSWORD: leona1306
       POSTGRES_DB: moviesdbkiii
     ports:
       - "5432:5432"
@@ -20,7 +20,7 @@ services:
       context: .
     restart: unless-stopped
     ports:
-      - "8000:8080"
+      - "8080:8080"
     depends_on:
       - db
     volumes:
